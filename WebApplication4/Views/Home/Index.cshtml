@@ -1,0 +1,39 @@
+﻿@model IQueryable<Project>
+
+@{
+    ViewData["Title"] = "Main Page";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="~/css/StyleSheet.css" />
+</head>
+<body>
+    <div class="text-center">
+        <h1>Поиск проектов на GitHub</h1>
+    </div>
+
+    <div class="panel panel-success text-center">
+        <div class="form-group">
+            <input class="form-control" />
+        </div>
+        <div class="button-find">
+            <button class="btn btn-dark" type="submit">Найти</button>
+        </div>
+    </div>
+
+    @foreach (var entity in Model)
+    {
+        <div class="card" style="width: 48rem;">
+            <div class="card-body">
+                <h5 class="card-title">@entity.Name</h5>
+                <p class="card-text">@entity.Author</p>
+                <a href="#" class="btn btn-secondary">Перейти в репозиторий</a>
+            </div>
+        </div>
+    }
+</body>
+</html>
