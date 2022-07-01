@@ -11,9 +11,22 @@ namespace WebApplication4.Models.Repositories
             _context = context;
         }
 
-        public IQueryable<Project> GetProjects()
+        //public IQueryable<Project> GetProjects()
+        //{
+        //    return _context.Projects.OrderBy(x => x.ID);
+        //}
+
+        public async Task<IQueryable<Project>> GetProjects(string searchString)
         {
-            return _context.Projects.OrderBy(x => x.ID);
+            if (string.IsNullOrEmpty(searchString))
+            {
+                return await Task.Run(() => _context.Projects.OrderBy(x => x.ID));
+            }
+
+            else
+            {
+                return await Task.Run(() => _context.Projects.Where(s => s.Name.Contains(searchString)));
+            }
         }
     }
 }

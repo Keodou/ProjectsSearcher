@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WebApplication4.Models.Repositories;
+using WebApplication4.Models.Entities;
 
 namespace WebApplication4.Controllers
 {
@@ -12,10 +13,12 @@ namespace WebApplication4.Controllers
             _projectsRepository = projectsRepository;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index(string searchString)
         {
-            var model = _projectsRepository.GetProjects();
-            return View(model);
+            ViewData["CurrentFilter"] = searchString;
+            var model = _projectsRepository.GetProjects(searchString);
+            
+            return View(await model);
         }
     }
 }
